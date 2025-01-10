@@ -14,13 +14,13 @@ function App() {
         <SidebarProvider>
           <div className="flex w-full">
             <SideNav />
-            <main className="flex flex-col w-full px-3">
+            <main className="flex flex-col w-full px-3 bg-background text-foreground">
               <div className="flex justify-between items-center py-4">
-                <SidebarTrigger />
+                <SidebarTrigger className="text-sidebar-foreground" />
                 <DropdownMenu>
                   {/* Trigger-ul pentru Dropdown */}
                   <DropdownMenuTrigger asChild>
-                    <button className="flex items-center space-x-2">
+                    <button className="flex items-center space-x-2 text-sidebar-foreground">
                       <span>Buna, nume user</span>
                       <svg
                           className="w-4 h-4"
@@ -40,26 +40,19 @@ function App() {
                   </DropdownMenuTrigger>
 
                   {/* Conținutul Dropdown */}
-                  <DropdownMenuContent>
+                  <DropdownMenuContent className="bg-sidebar text-sidebar-foreground">
                     <DropdownMenuItem>
-                      <a
-                          href="#"
-                          className="block"
-                      >
+                      <a href="#" className="block">
                         Settings
                       </a>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
-                      <a
-                          href="#"
-                          className="block"
-                      >
+                      <a href="#" className="block">
                         Logout
                       </a>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
-
               </div>
               <Routes>
                 <Route path="/" element={<Dashboard />} />
@@ -73,5 +66,6 @@ function App() {
       </Router>
   );
 }
+
 
 export default App;

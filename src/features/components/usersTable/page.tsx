@@ -32,7 +32,7 @@ const DemoPage: React.FC = () => {
     }
 
     return (
-        <div className="container mx-auto py-10">
+        <div className="container mx-auto py-10 px-8">
             <DataTable columns={columns} data={data} />
         </div>
     );

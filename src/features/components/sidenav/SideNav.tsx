@@ -13,8 +13,6 @@ import {
     SidebarGroupContent,
     SidebarGroupLabel,
     SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
 import { NavLink } from "react-router-dom";
@@ -56,37 +54,38 @@ const items = [
 
 export default function SideNav() {
     return (
-        <Sidebar collapsible="icon">
+        <Sidebar collapsible="icon" className="bg-sidebar text-sidebar-foreground">
             <SidebarContent>
                 <SidebarGroup>
-                    <SidebarGroupLabel>Application</SidebarGroupLabel>
+                    <SidebarGroupLabel className="text-sidebar-foreground font-bold">
+                        Application
+                    </SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
                             {items.map((item) => (
-                                <SidebarMenuItem key={item.title}>
-                                    <SidebarMenuButton>
-                                        {item.url ? (
-                                            <NavLink
-                                                to={item.url}
-                                                className={({ isActive }) =>
-                                                    `flex items-center w-full ${
-                                                        isActive ? "text-primary font-bold" : ""
-                                                    }`
-                                                }
-                                            >
-                                                <div className="flex items-center w-full">
-                                                    <item.icon size={16} className="mr-2" />
-                                                    <span>{item.title}</span>
-                                                </div>
-                                            </NavLink>
-                                        ) : (
-                                            <div className="flex items-center w-full">
-                                                <item.icon size={16} className="mr-2" />
-                                                <span>{item.title}</span>
-                                            </div>
-                                        )}
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
+                                <li
+                                    key={item.title}
+                                    className={`group/menu-item relative flex items-center w-full p-2 rounded-md transition ${
+                                        item.url === window.location.pathname
+                                            ? "bg-black text-white font-bold"
+                                            : "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                                    }`}
+                                >
+                                    {item.url ? (
+                                        <NavLink
+                                            to={item.url}
+                                            className="flex items-center w-full"
+                                        >
+                                            <item.icon size={16} className="mr-2" />
+                                            <span>{item.title}</span>
+                                        </NavLink>
+                                    ) : (
+                                        <div className="flex items-center w-full">
+                                            <item.icon size={16} className="mr-2" />
+                                            <span>{item.title}</span>
+                                        </div>
+                                    )}
+                                </li>
                             ))}
                         </SidebarMenu>
                     </SidebarGroupContent>
