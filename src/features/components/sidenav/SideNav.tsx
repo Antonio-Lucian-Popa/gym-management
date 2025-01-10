@@ -1,9 +1,5 @@
 import {
-    FileSliders,
-    Home,
     LayoutDashboard,
-    TruckIcon,
-    UtilityPole,
 } from "lucide-react";
 
 import {
@@ -25,30 +21,6 @@ const items = [
         title: "Dashboard",
         url: "/",
         icon: LayoutDashboard,
-    },
-    {
-        title: "Locuinte",
-        url: "/locuinte",
-        icon: Home,
-    },
-    {
-        title: "Contori Electrici",
-        url: "/contori-electrici",
-        icon: UtilityPole,
-    },
-    {
-        title: "Vizualizare Sisteme",
-        url: "/vizualizare-sisteme",
-        icon: FileSliders,
-    },
-    {
-        title: "Flota",
-        icon: TruckIcon,
-    },
-    {
-        title: "Fosti Angajati",
-        url: "/fosti-angajati",
-        icon: FileSliders,
     },
 ];
 
