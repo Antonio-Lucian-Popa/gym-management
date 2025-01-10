@@ -24,6 +24,8 @@ import { Button } from "@/components/ui/button"
 import * as React from "react"
 import { Input } from "@/components/ui/input"
 import {UserPlus} from "lucide-react";
+import {useState} from "react";
+import MemberModal, {MemberFormData} from "@/features/components/member-modal/MemberModal.tsx";
 
 
 interface DataTableProps<TData, TValue> {
@@ -35,6 +37,11 @@ export function DataTable<TData, TValue>({
                                              columns,
                                              data,
                                          }: DataTableProps<TData, TValue>) {
+
+    const [isModalOpen, setModalOpen] = useState(false);
+    const [modalMode, setModalMode] = useState<"add" | "edit">("add");
+    const [currentMember, setCurrentMember] = useState(undefined);
+
     const [sorting, setSorting] = React.useState<SortingState>([])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
         []
@@ -55,6 +62,17 @@ export function DataTable<TData, TValue>({
         },
     })
 
+    const handleAddMember = () => {
+        setModalMode("add");
+        setCurrentMember(undefined);
+        setModalOpen(true);
+    };
+
+    const handleSubmit = (data: MemberFormData) => {
+        console.log("Form Data Submitted:", data);
+        // Logic to save data
+    };
+
     return (
         <div>
             <div className="flex items-center justify-between py-4">
@@ -66,15 +84,21 @@ export function DataTable<TData, TValue>({
                     }
                     className="max-w-sm"
                 />
-
-                <Button>
-                    <UserPlus /> Add member
+                <Button onClick={handleAddMember}>
+                    <UserPlus/> Add member
                 </Button>
+                <MemberModal
+                    isOpen={isModalOpen}
+                    onClose={() => setModalOpen(false)}
+                    onSubmit={handleSubmit}
+                    mode={modalMode}
+                    initialData={currentMember}
+                />
             </div>
             <div className="rounded-md border">
                 <Table>
                     <TableHeader>
-                        {table.getHeaderGroups().map((headerGroup) => (
+                    {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => (
                                     <TableHead key={header.id} className="text-left px-4 py-2">
