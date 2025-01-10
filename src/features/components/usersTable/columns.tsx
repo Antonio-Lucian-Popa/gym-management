@@ -12,6 +12,8 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import MemberModal, {MemberFormData} from "@/features/components/member-modal/MemberModal.tsx";
+import {useState} from "react";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -68,7 +70,7 @@ export const columns: ColumnDef<User>[] = [
     {
         id: "actions",
         cell: ({ row }) => {
-            const payment = row.original
+            const user = row.original
 
             return (
                 <DropdownMenu>
@@ -81,13 +83,34 @@ export const columns: ColumnDef<User>[] = [
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <DropdownMenuItem
-                            onClick={() => navigator.clipboard.writeText(payment.id)}
+                            onClick={() => {
+                                const [isModalOpen, setModalOpen] = useState(false);
+                                const [modalMode, setModalMode] = useState<"add" | "edit">("edit");
+                                const [currentMember, setCurrentMember] = useState(null);
+
+                                const handleEditMember = (member: MemberFormData) => {
+                                    setModalMode("edit");
+                                    setCurrentMember(member);
+                                    setModalOpen(true);
+                                };
+
+                                const handleSubmit = (data: any) => {
+                                    console.log("Form Data Submitted:", data);
+                                    // Logic to save data
+                                };
+                            }}
                         >
-                            Copy payment ID
+                            <MemberModal
+                                isOpen={isModalOpen}
+                                onClose={() => setModalOpen(false)}
+                                onSubmit={handleSubmit}
+                                mode={modalMode}
+                                initialData={currentMember}
+                            />
+                            Edit member
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>View customer</DropdownMenuItem>
-                        <DropdownMenuItem>View payment details</DropdownMenuItem>
+                        <DropdownMenuItem>Delete member</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             )
