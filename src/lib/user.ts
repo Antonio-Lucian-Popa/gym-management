@@ -10,19 +10,21 @@ export type ApiResponse = {
 export type User = {
   id: string;
   firstName: string;
-lastName: string;
+    lastName: string;
+    phoneNumber: string;
   email: string;
-  subscription: string;
+  subscriptionEnd: string;
+  subscriptionStart: string;
 };
 
 export const mapUserToMemberFormData = (user: User): MemberFormData => ({
     id: user.id,
-    firstName: user.firstName.split(" ")[0], // Split pentru prenume
-    lastName: user.lastName.split(" ")[1] || "", // Split pentru nume de familie
+    firstName: user.firstName, // Split pentru prenume
+    lastName: user.lastName, // Split pentru nume de familie
     email: user.email,
-    phoneNumber: "", // Populează acest câmp cu un default (sau date reale)
-    subscriptionStart: "", // Populează acest câmp cu un default (sau date reale)
-    subscriptionEnd: user.subscription,
+    phoneNumber: user.phoneNumber, // Populează acest câmp cu un default (sau date reale)
+    subscriptionStart: user.subscriptionStart, // Populează acest câmp cu un default (sau date reale)
+    subscriptionEnd: user.subscriptionEnd,
     subscriptionMonths: 0
 });
   
@@ -31,6 +33,8 @@ export const mapMemberFormDataToUser = (member: MemberFormData): User => ({
     firstName: member.firstName,
     lastName: member.lastName,
     email: member.email,
-    subscription: member.subscriptionEnd,
+    phoneNumber: member.phoneNumber,
+    subscriptionEnd: member.subscriptionEnd,
+    subscriptionStart: member.subscriptionStart
   });
   

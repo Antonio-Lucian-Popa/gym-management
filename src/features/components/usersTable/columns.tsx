@@ -81,6 +81,7 @@ export const columns = (
       id: "actions",
       cell: ({ row }) => {
         const user = row.original;
+        console.log("user", user);
   
         return (
           <DropdownMenu>

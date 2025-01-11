@@ -37,6 +37,7 @@ export const useMembersService = () => {
   const handleEditMember = (user: User) => {
     const memberFormData = mapUserToMemberFormData(user);
     setModalMode("edit");
+    console.log("Editing member:", memberFormData);
     setCurrentMember(memberFormData);
     setModalOpen(true);
   };
