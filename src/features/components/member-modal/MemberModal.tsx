@@ -5,13 +5,14 @@ import React, { useState } from "react";
 
 // Interfața pentru datele formularului
 export interface MemberFormData {
+    id?: string; // Opțional pentru a permite adăugarea de membri noi
     firstName: string;
     lastName: string;
     email: string;
     phoneNumber: string;
     subscriptionMonths: number;
-    startSubscription: string;
-    endSubscription: string;
+    subscriptionStart: string;
+    subscriptionEnd: string;
 }
 
 export interface MemberModalProps {
@@ -30,8 +31,8 @@ export default function MemberModal({ isOpen, onClose, onSubmit, mode, initialDa
             email: "",
             phoneNumber: "",
             subscriptionMonths: 1, // Default value
-            startSubscription: "",
-            endSubscription: "",
+            subscriptionStart: "",
+            subscriptionEnd: "",
         }
     );
 
@@ -54,8 +55,8 @@ export default function MemberModal({ isOpen, onClose, onSubmit, mode, initialDa
         setFormData((prev: MemberFormData) => ({
             ...prev,
             subscriptionMonths: months,
-            startSubscription: startDate.toISOString().split("T")[0],
-            endSubscription: endDate.toISOString().split("T")[0],
+            subscriptionStart: startDate.toISOString().split("T")[0],
+            subscriptionEnd: endDate.toISOString().split("T")[0],
         }));
     };
 
@@ -136,26 +137,26 @@ export default function MemberModal({ isOpen, onClose, onSubmit, mode, initialDa
                         />
                     </div>
                     <div className="flex flex-col space-y-2">
-                        <label htmlFor="startSubscription" className="text-sm font-medium text-gray-700">
+                        <label htmlFor="subscriptionStart" className="text-sm font-medium text-gray-700">
                             Start Subscription
                         </label>
                         <Input
-                            id="startSubscription"
+                            id="subscriptionStart"
                             placeholder="Start Subscription"
-                            name="startSubscription"
-                            value={formData.startSubscription}
+                            name="subscriptionStart"
+                            value={formData.subscriptionStart}
                             readOnly
                         />
                     </div>
                     <div className="flex flex-col space-y-2">
-                        <label htmlFor="endSubscription" className="text-sm font-medium text-gray-700">
+                        <label htmlFor="subscriptionEnd" className="text-sm font-medium text-gray-700">
                             End Subscription
                         </label>
                         <Input
-                            id="endSubscription"
+                            id="subscriptionEnd"
                             placeholder="End Subscription"
-                            name="endSubscription"
-                            value={formData.endSubscription}
+                            name="subscriptionEnd"
+                            value={formData.subscriptionEnd}
                             readOnly
                         />
                     </div>
